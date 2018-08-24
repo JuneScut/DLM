@@ -92,11 +92,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public boolean isUserNameAndPwdValid(String name,String pwd) {
         // 用户名和密码不得为空
-        if (name.equals("")) {
+        if (name.trim().equals("")) {
             Toast.makeText(this,"用户名不得为空",
                     Toast.LENGTH_SHORT).show();
             return false;
-        } else if (pwd.equals("")) {
+        } else if (pwd.trim().equals("")) {
             Toast.makeText(this,"密码不得为空",
                     Toast.LENGTH_SHORT).show();
             return false;
