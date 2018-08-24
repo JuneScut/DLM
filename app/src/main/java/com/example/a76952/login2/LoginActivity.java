@@ -12,6 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a76952.login2.Objects.Cur;
+import com.example.a76952.login2.network.HttpCallBackListener;
+import com.example.a76952.login2.network.HttpConnect;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String userPassword;
     private Handler mhandler;
     private TextView registerText;
+    private final String api= "http://biketomotor.cn:3000/api/UserSignIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -35,13 +43,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void init(){
-        EditText userName = (EditText) findViewById(R.id.et_userName);
-        EditText password = (EditText) findViewById(R.id.et_password);
-        ImageView unameClear = (ImageView) findViewById(R.id.iv_unameClear);
-        ImageView pwdClear = (ImageView) findViewById(R.id.iv_pwdClear);
-
-        EditTextClearTools.addClearListener(userName,unameClear);
-        EditTextClearTools.addClearListener(password,pwdClear);
+        etUserName = (EditText) findViewById(R.id.et_userName);
+        etUserPassword = (EditText) findViewById(R.id.et_password);
+//        ImageView unameClear = (ImageView) findViewById(R.id.iv_unameClear);
+//        ImageView pwdClear = (ImageView) findViewById(R.id.iv_pwdClear);
+//        EditTextClearTools.addClearListener(userName,unameClear);
+//        EditTextClearTools.addClearListener(password,pwdClear);
     }
     @Override
     public void onClick(View v){
@@ -59,26 +66,79 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Log.d("LoginActivity","已经提交");
     }
     public void login(){
-        //实现界面的跳转
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(intent);
-        //关闭当前界面
-        finish();
+        userName=etUserName.getText().toString();
+        userPassword=etUserPassword.getText().toString();
+        Log.d("userName",userName);
+        Log.d("password",userPassword);
+        if(!isUserNameAndPwdValid(userName,userPassword)){
+            return;
+        }
+        else{
+            JSONObject jsonData = getJson(userName,userPassword);
+             /* Use HttpUrlConnection  发送登录请求 用户名是学号 */
+            HttpConnect.sendHttpRequest(api, "POST", jsonData, new HttpCallBackListener() {
+                @Override
+                public void success(String response) {
+                    catchResponse(response);
+                }
+                @Override
+                public void error(Exception exception) {
+                    exception.printStackTrace();
+                }
+            });
 
+       }
     }
 
-    public boolean isUserNameAndPwdValid() {
+    public boolean isUserNameAndPwdValid(String name,String pwd) {
         // 用户名和密码不得为空
-        if (etUserName.getText().toString().trim().equals("")) {
+        if (name.equals("")) {
             Toast.makeText(this,"用户名不得为空",
                     Toast.LENGTH_SHORT).show();
             return false;
-        } else if (etUserPassword.getText().toString().trim().equals("")) {
+        } else if (pwd.equals("")) {
             Toast.makeText(this,"密码不得为空",
                     Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
+    }
+
+    private JSONObject getJson(String account,String pwd) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("account", account);
+            json.put("pwd", pwd);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    private void catchResponse(final String response) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonData = new JSONObject(response);
+                    String result = jsonData.getString("result");
+                    String reason = jsonData.getString("reason");
+                    if (result.compareTo("true") == 0) {
+                        Cur.setAccount(etUserName.getText().toString());
+                        //Toast.makeText(LoginActivity.this, reason, Toast.LENGTH_SHORT).show();
+                        //实现界面的跳转
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        //关闭当前界面
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, reason, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
