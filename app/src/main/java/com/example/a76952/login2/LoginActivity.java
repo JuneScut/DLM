@@ -128,6 +128,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //Toast.makeText(LoginActivity.this, reason, Toast.LENGTH_SHORT).show();
                         //实现界面的跳转
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        String account=userName;
+                        intent.putExtra("account",account);
                         startActivity(intent);
                         //关闭当前界面
                         finish();

@@ -19,26 +19,15 @@
         android:layout_below="@id/line"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/urgent_aty_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- 添加一个ListView控件 -->
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:text="活动名称"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="xxx"
-                android:textSize="18sp" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="软件工程五班"
-                android:textSize="18sp" />
-
-        </LinearLayout>
         <LinearLayout
             android:id="@+id/centerLayout"
             android:gravity="center"
@@ -58,6 +47,7 @@
                 android:visibility="visible" />
 
             <TextView
+                android:id="@+id/hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"

@@ -21,6 +21,7 @@
     <color name="round_button">#6495ED</color>
     <color name="colorGray">#bdbdbd</color>
     <color name="colorLightBlue">#579CCF</color>
+    <color name="colorGreen">#3CB371</color>
 
     <drawable name="checkbox">#666666</drawable>
     <drawable name="camera_back_press">#1b1b1b</drawable>

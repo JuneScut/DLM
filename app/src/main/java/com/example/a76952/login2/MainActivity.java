@@ -1,6 +1,7 @@
 package com.example.a76952.login2;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,12 +14,18 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a76952.login2.Fragments.ActivityFragment;
 import com.example.a76952.login2.Fragments.BaseFragment;
 import com.example.a76952.login2.Fragments.CourseTableFragment;
 import com.example.a76952.login2.Fragments.SignFragment;
+import com.example.a76952.login2.Objects.Cur;
+import com.example.a76952.login2.network.HttpCallBackListener;
+import com.example.a76952.login2.network.HttpConnect;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem menuItem;
     private BottomNavigationView bottomNavigationView;
     private TextView mTextMessage;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,4 +127,5 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
     }
+
 }
