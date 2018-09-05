@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <!--<EditText-->
+            <!--android:id="@+id/layout_invite_account"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:hint="被邀请者账号"/>-->
+        <LinearLayout
+            android:id="@+id/invite_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_layout"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="被邀请者账号 | "
+            android:textSize="20sp"
+            android:padding="10dp"/>
+            <EditText
+            android:id="@+id/layout_invite_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:background="@null" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/layout_invite_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/invite_wrapper"
+            android:layout_centerInParent="true"
+            android:background="@color/colorLightBlue"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/White"
+            android:text="邀请"/>
+    </RelativeLayout>
+
+</RelativeLayout>

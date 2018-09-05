@@ -3,24 +3,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+    <!--<ImageView-->
+        <!--android:id="@+id/item_activity_image"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/item_activity_id"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:gravity="center"
         android:padding="10dp"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:text="id"/>
 
     <TextView
-        android:id="@+id/item_time"
-        android:layout_toRightOf="@+id/item_name"
+        android:id="@+id/item_activity_name"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_toRightOf="@+id/item_activity_id"
         android:gravity="center"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:textSize="24sp"
+        android:text="name"/>
 
     <ImageView
+        android:id="@+id/item_activity_image"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_marginRight="10dp"

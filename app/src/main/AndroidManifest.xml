@@ -28,7 +28,8 @@
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ActivityDetail"></activity>
+        <activity android:name=".ActivityDetail" />
+        <activity android:name=".ActivityInvite"></activity>
     </application>
 
 </manifest>
