@@ -1,7 +1,6 @@
 package com.example.a76952.login2;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,18 +13,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.a76952.login2.Fragments.ActivityFragment;
 import com.example.a76952.login2.Fragments.BaseFragment;
 import com.example.a76952.login2.Fragments.CourseTableFragment;
 import com.example.a76952.login2.Fragments.SignFragment;
-import com.example.a76952.login2.Objects.Cur;
-import com.example.a76952.login2.network.HttpCallBackListener;
-import com.example.a76952.login2.network.HttpConnect;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.a76952.login2.adapter.ViewPagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {

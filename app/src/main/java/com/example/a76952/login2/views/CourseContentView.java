@@ -9,7 +9,7 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.a76952.login2.AddCourseGvAdapter;
+import com.example.a76952.login2.adapter.AddCourseGvAdapter;
 
 /**
  * Created by 76952 on 2018/8/11.
@@ -67,47 +67,47 @@ public class CourseContentView extends RelativeLayout {
         addCourseGV.setGravity(Gravity.CENTER);
         addCourseGV.setNumColumns(7);
         this.addView(addCourseGV, gvParams);
-        addCourseGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //设置当前点击的按钮显示其他的隐藏
-                for (int i = 0; i < 84; i++) {
-                    if (i != position) {
-                        visibilities[i] = false;
-                    } else {
-                        visibilities[position] = true;
-                    }
-                }
-
-                updateGridViewLayout(visibilities);
-                //点击次数自加
-                clickNums++;
-                if (clickNums == 1) {
-                    //(1)记录第一次点击的按钮id
-                    lastPosition = position;
-                } else if (clickNums == 2) {
-                    //(2)判断第二次点击的按钮是否是同一个按钮
-                    if (lastPosition == position) {
-                        //点击同一个按钮两次后键点击记录清零
-                        clickNums = 0;
-                        //第二次点击之后将背景隐藏并实现相应逻辑
-                        visibilities[position] = false;
-                        updateGridViewLayout(visibilities);
-                        //TODO ...
-                    } else {
-                        //如果第二次点击的不是同一个按钮意味着点击了
-                        //其它按钮，同时该按钮的点击次数记录是第一次
-                        //并且记录下此时的按钮id,此时又回到了逻辑（2）
-                        clickNums = 1;
-                        lastPosition = position;
-                    }
-                }
-            }
-        });
+//        addCourseGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //设置当前点击的按钮显示其他的隐藏
+//                for (int i = 0; i < 84; i++) {
+//                    if (i != position) {
+//                        visibilities[i] = false;
+//                    } else {
+//                        visibilities[position] = true;
+//                    }
+//                }
+//
+//                updateGridViewLayout(visibilities);
+//                //点击次数自加
+//                clickNums++;
+//                if (clickNums == 1) {
+//                    //(1)记录第一次点击的按钮id
+//                    lastPosition = position;
+//                } else if (clickNums == 2) {
+//                    //(2)判断第二次点击的按钮是否是同一个按钮
+//                    if (lastPosition == position) {
+//                        //点击同一个按钮两次后键点击记录清零
+//                        clickNums = 0;
+//                        //第二次点击之后将背景隐藏并实现相应逻辑
+//                        visibilities[position] = false;
+//                        updateGridViewLayout(visibilities);
+//                        //TODO ...
+//                    } else {
+//                        //如果第二次点击的不是同一个按钮意味着点击了
+//                        //其它按钮，同时该按钮的点击次数记录是第一次
+//                        //并且记录下此时的按钮id,此时又回到了逻辑（2）
+//                        clickNums = 1;
+//                        lastPosition = position;
+//                    }
+//                }
+//            }
+//        });
 
 
     }
-
+    //构造函数
     public CourseContentView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -158,6 +158,7 @@ public class CourseContentView extends RelativeLayout {
         super.onLayout(changed, l, t, r, b);
 
         int childCount = getChildCount();
+        System.out.println("childCount = "+childCount);
         /**
          * markerView定位排列算法
          * 0  -- 6

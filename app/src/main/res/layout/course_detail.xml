@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.a76952.login2.NewCourse">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="课程名"
+            android:textSize="24sp"/>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_shadow_bg"
+                android:orientation="vertical"
+                android:padding="8dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_edittext">
+
+                    <ImageView
+                        android:id="@+id/iv_classroom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/ic_svg_classroom" />
+
+                    <TextView
+                        android:id="@+id/classroom_hint"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_classroom"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="上课教室"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:id="@+id/classroom_view"
+                        android:layout_width="1dip"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/classroom_hint"
+                        android:background="@color/colorCursor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/classroom_view"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="上课教室"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_edittext">
+
+                    <ImageView
+                        android:id="@+id/iv_teacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/ic_svg_teacher" />
+
+                    <TextView
+                        android:id="@+id/teacher_hint"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_teacher"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="授课教师"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:id="@+id/teacher_view"
+                        android:layout_width="1dip"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/teacher_hint"
+                        android:background="@color/colorCursor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/teacher_hint"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="授课教师"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_edittext">
+
+                    <ImageView
+                        android:id="@+id/iv_start_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/ic_svg_week" />
+
+                    <TextView
+                        android:id="@+id/start_week_hint"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_start_week"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="开始周数"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:id="@+id/start_week_view"
+                        android:layout_width="1dip"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/start_week_hint"
+                        android:background="@color/colorCursor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/start_week_view"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="开始周数"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_edittext">
+
+                    <ImageView
+                        android:id="@+id/iv_end_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/ic_svg_week" />
+
+                    <TextView
+                        android:id="@+id/end_weekr_hint"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_end_week"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="结束周数"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:id="@+id/end_week_view"
+                        android:layout_width="1dip"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/end_weekr_hint"
+                        android:background="@color/colorCursor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/end_weekr_hint"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="结束周数"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_edittext">
+
+                    <ImageView
+                        android:id="@+id/iv_weekday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/ic_svg_node" />
+
+                    <TextView
+                        android:id="@+id/week_day_hint"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_weekday"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="上课时间"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:id="@+id/week_day_view"
+                        android:layout_width="1dip"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/week_day_hint"
+                        android:background="@color/colorCursor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/week_day_view"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="上课时间"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_edittext">
+
+                    <ImageView
+                        android:id="@+id/iv_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/ic_svg_node" />
+
+                    <TextView
+                        android:id="@+id/start_time_hint"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_start_time"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="开始时间"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:id="@+id/start_time_view"
+                        android:layout_width="1dip"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/start_time_hint"
+                        android:background="@color/colorCursor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/start_time_hint"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="开始时间"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_edittext">
+
+                    <ImageView
+                        android:id="@+id/iv_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/ic_svg_node" />
+
+                    <TextView
+                        android:id="@+id/end_time_hint"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_end_time"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="结束时间"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:id="@+id/end_time_view"
+                        android:layout_width="1dip"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/end_time_hint"
+                        android:background="@color/colorCursor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/end_time_view"
+                        android:background="@null"
+                        android:ems="19"
+                        android:text="结束时间"
+                        android:textSize="15sp" />
+
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

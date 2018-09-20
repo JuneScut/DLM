@@ -85,7 +85,8 @@ public class ActivityInvite extends AppCompatActivity implements View.OnClickLis
                     Intent to_detail = new Intent(ActivityInvite.this, ActivityDetail.class);
                     startActivity(to_detail);
                 } else {
-                    Toast.makeText(ActivityInvite.this, "邀请失败", Toast.LENGTH_SHORT).show();
+                    String reason = json.getString("reason");
+                    Toast.makeText(ActivityInvite.this, "邀请失败"+reason, Toast.LENGTH_SHORT).show();
                 }
             }catch (JSONException e){
                 e.printStackTrace();

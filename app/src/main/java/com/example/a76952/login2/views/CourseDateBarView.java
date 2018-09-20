@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import static android.widget.LinearLayout.HORIZONTAL;
 import com.example.a76952.login2.R;
+
+import java.util.Calendar;
+
 /**
  * Created by 76952 on 2018/8/11.
  */
@@ -63,13 +66,15 @@ public class CourseDateBarView extends LinearLayout {
 
 
         String[] week = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
-
+        Calendar calandar = Calendar.getInstance();
+        int month = calandar.get(Calendar.MONTH)+1;
+        String currentMonth = month+"月";
         //添加月份栏
         TextView tvMonths = new TextView(context);
         tvMonths.setTextColor(mTextColor);
         tvMonths.setTextSize(mTextSize);
         tvMonths.setBackground(mTextBackground);
-        tvMonths.setText("5月");
+        tvMonths.setText(currentMonth);
         ll.addView(tvMonths, tvMonthsParams);
 
         for (int i = 0; i < 7; i++) {
@@ -87,9 +92,9 @@ public class CourseDateBarView extends LinearLayout {
 
             tvLine.setBackgroundColor(colorGray);
 
-            //向父布局添加子控件
-            ll.addView(tvLine, tvLineParams);
-            ll.addView(tv, tvParams);
+            //向父布局添加子控件（textview）
+            ll.addView(tvLine, tvLineParams);//  tvLineParams = new LayoutParams(1, LayoutParams.MATCH_PARENT);设置上划线
+            ll.addView(tv, tvParams);//  tvParams = new LayoutParams(0, LayoutParams.MATCH_PARENT, 2);
         }
         //下描线
         View culomnLine2 = new View(context);
@@ -97,8 +102,18 @@ public class CourseDateBarView extends LinearLayout {
         LayoutParams tclParams2 = new LayoutParams(LayoutParams.MATCH_PARENT,1);
         this.addView(culomnLine2,tclParams2);
 
-        TextView choosedTv = (TextView) ll.getChildAt(4);
-        choosedTv.setText("31\n周二");
+        Integer index = getWeekDay()*2;
+        TextView choosedTv = (TextView) ll.getChildAt(index);
+        choosedTv.setText(week[getWeekDay()-1]);
         choosedTv.setBackgroundColor(colorLightBlue);
+    }
+    //获取当前周数
+    public int getWeekDay() {
+        int w = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
+        if (w <= 0) {
+            w = 7;
+        }
+        System.out.println("w="+w);
+        return w;
     }
 }

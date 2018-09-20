@@ -14,8 +14,10 @@ import com.example.a76952.login2.Objects.Cur;
 import com.example.a76952.login2.network.HttpCallBackListener;
 import com.example.a76952.login2.network.HttpConnect;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class ActivityDetail extends AppCompatActivity  implements View.OnClickListener {
 //    private TextView actiName;
@@ -45,13 +47,15 @@ private TextView  textview_name;
     private ImageView imageview_image;
     private TextView  textview_time;
     private TextView  textview_place;
-    private Button    button_sign;
+    //private Button    button_sign;
     private Button button_invite;
     private Button    button_delete;
     private TextView  textview_info;
     private String id;
     private String creater;
+    private TextView tv_participate;
     private String address ="http://biketomotor.cn:3000/api/GetActivityDetails";
+    private String par_address = "http://biketomotor.cn:3000/api/ActivityParticipant";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +66,13 @@ private TextView  textview_name;
         imageview_image = (ImageView)findViewById(R.id.layout_activity_info_image);
         textview_time   = (TextView)findViewById(R.id.layout_activity_info_time);
         textview_place  = (TextView)findViewById(R.id.layout_activity_info_place);
-        button_sign     = (Button)findViewById(R.id.layout_activity_info_sign);
+        //button_sign     = (Button)findViewById(R.id.layout_activity_info_sign);
         button_invite   = (Button)findViewById(R.id.layout_activity_info_invite);
         button_delete   = (Button)findViewById(R.id.layout_activity_info_delete);
         textview_info   = (TextView)findViewById(R.id.layout_activity_info_info);
+        tv_participate  = (TextView)findViewById(R.id.participate);
 
-        button_sign.setOnClickListener(this);
+        //button_sign.setOnClickListener(this);
         button_delete.setOnClickListener(this);
         button_invite.setOnClickListener(this);
 
@@ -77,10 +82,10 @@ private TextView  textview_name;
         System.out.println("Cur.getAccount().toString()");
         System.out.println(Cur.getAccount().toString());
         //这里会报错，不能把compareTo指向空指针
-//        if (creater.compareTo(Cur.getAccount().toString()) != 0) {
-//            button_delete.setVisibility(View.GONE);
-//            button_invite.setVisibility(View.GONE);
-//        }
+        if (creater.compareTo(Cur.getAccount().toString()) != 0) {
+            button_delete.setVisibility(View.GONE);
+            button_invite.setVisibility(View.GONE);
+        }
 // 把活动的creator 字段和存储在本地的userId做比较 相同的话需要增加 “删除活动” “邀请”
 // 邀请的话需要知道被邀请者的id
 // 加一个签到按钮
@@ -96,9 +101,30 @@ private TextView  textview_name;
                 exception.printStackTrace();
             }
         });
+        JSONObject parJson = getParJson();
+        HttpConnect.sendHttpRequest(par_address, "POST", parJson, new HttpCallBackListener() {
+            @Override
+            public void success(String response) {
+                catchParResponse(response);
+            }
+
+            @Override
+            public void error(Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
     private JSONObject getJson() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("id", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+    private JSONObject getParJson() {
         JSONObject json = new JSONObject();
         try {
             json.put("id", id);
@@ -120,7 +146,7 @@ private TextView  textview_name;
                         String name = json.getString("activity_name");
                         String time = json.getString("activity_time");
                         String place = json.getString("activity_place");
-                        String creater = json.getString("creater");
+                        String creater = "创建者"+ json.getString("creater");
                         CharSequence sysTimeStr = DateFormat.format("yyyy年MM月dd日hh时mm分", Long.parseLong(time));//时间显示格式
                         textview_name.setText(name);
                         textview_time.setText(sysTimeStr);
@@ -135,12 +161,36 @@ private TextView  textview_name;
             }
         });
     }
+    private void catchParResponse(final String response) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ActivityDetail.this, response, Toast.LENGTH_SHORT).show();
+                System.out.println("participate");
+                System.out.println(response);
+                try{
+                    JSONObject json = new JSONObject(response);
+                    String participant = json.getString("participant");
+                    JSONArray jsonArray = new JSONArray(participant);
+                    String text= new String();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        System.out.println(jsonArray.getString(i));
+                        text+=jsonArray.getString(i)+'\n';
+                    }
+                    System.out.println(text);
+                    tv_participate.setText(text);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.layout_activity_info_sign:
-                break;
+//            case R.id.layout_activity_info_sign:
+//                break;
             case R.id.layout_activity_info_invite:
                 Intent to_invite = new Intent(ActivityDetail.this, ActivityInvite.class);
                 to_invite.putExtra("id", id);

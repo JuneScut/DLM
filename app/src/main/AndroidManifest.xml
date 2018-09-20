@@ -29,7 +29,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ActivityDetail" />
-        <activity android:name=".ActivityInvite"></activity>
+        <activity android:name=".ActivityInvite" />
+        <activity android:name=".NewCourse"></activity>
     </application>
 
 </manifest>

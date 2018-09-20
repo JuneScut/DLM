@@ -178,17 +178,26 @@
             android:layout_marginTop="10dp"
             android:text="infoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfo"/>
 
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_below="@+id/layout_activity_info_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="活动参与者"/>
 
-    <Button
-        android:id="@+id/layout_activity_info_sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_activity_info_info"
-        android:layout_marginTop="20dp"
-        android:layout_centerInParent="true"
-        android:background="@color/colorLightBlue"
-        android:textColor="@color/White"
-        android:text="签到"/>
+        <TextView
+            android:id="@+id/participate"
+            android:layout_below="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="无"/>
+
 
     <Button
         android:id="@+id/layout_activity_info_invite"

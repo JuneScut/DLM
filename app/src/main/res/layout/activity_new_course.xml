@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.a76952.login2.NewCourse">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:id="@+id/et_course_name"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="课程名称"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:singleLine="true"
+            android:textSize="32sp"
+            tools:targetApi="lollipop" />
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_shadow_bg"
+                android:orientation="vertical"
+                android:padding="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="上课教室"/>
+                    <com.example.a76952.login2.views.EditTextLayout
+                        android:id="@+id/etl_classroom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hint="输入上课教室"
+                        app:icon="@drawable/ic_svg_classroom"
+                        />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="上课教师"/>
+
+                    <com.example.a76952.login2.views.EditTextLayout
+                        android:id="@+id/etl_teacher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hint="输入上课教师"
+                        app:icon="@drawable/ic_svg_teacher"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="45dp"
+                            android:gravity="center"
+                            android:textSize="15sp"
+                            android:text="开始周数"/>
+                        <com.example.a76952.login2.views.EditTextLayout
+                            android:id="@+id/start_week"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hint="开始周数"
+                            app:icon="@drawable/ic_svg_node"
+                            />
+
+                </LinearLayout>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="结束周数"/>
+                    <com.example.a76952.login2.views.EditTextLayout
+                        android:id="@+id/end_week"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hint="结束周数"
+                        app:icon="@drawable/ic_svg_node"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="上课时间"/>
+                    <com.example.a76952.login2.views.EditTextLayout
+                        android:id="@+id/week_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hint="请输入星期几"
+                        app:icon="@drawable/ic_svg_node"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_add_time_item" />
+
+            <Button
+                android:id="@+id/btn_remove"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn_cancel"
+                android:text="增加"
+                android:textSize="16sp"
+
+                tools:visibility="visible" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

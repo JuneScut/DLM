@@ -13,7 +13,7 @@ import com.example.a76952.login2.R;
 /**
  * Created by 76952 on 2018/8/11.
  */
-
+//左边栏 显示每天的节数
 public class CourseNumersBarView extends LinearLayout {
     public CourseNumersBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
