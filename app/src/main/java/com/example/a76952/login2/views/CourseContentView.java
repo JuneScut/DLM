@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.a76952.login2.adapter.AddCourseGvAdapter;
 
+import java.util.ArrayList;
+
 /**
  * Created by 76952 on 2018/8/11.
  */
@@ -32,8 +34,8 @@ public class CourseContentView extends RelativeLayout {
     private int clickNums = 0;
 
     //课程View
-    private int[][] crNums;
-    private String[] courseText;
+    private ArrayList<int[]> crNums;
+    private ArrayList<String> courseText;
     private int culomnNum;
     private int startRowNum;
     private int endRowNum;
@@ -199,21 +201,21 @@ public class CourseContentView extends RelativeLayout {
                 TextView tv = (TextView) childView;
                 tv.setLayoutParams(params);
                 //文字内容在这里设置才会自动排序
-                tv.setText(courseText[i - 85]);
+                tv.setText(courseText.get(i - 85));
                 //最后+1dp/-1dp来设置间隔即间隔为2dp
-                tv.layout(((crNums[i - 85][0] - 1) * avgWidth) + 1, ((crNums[i - 85][1] - 1) * avgHeight) + 1, (crNums[i - 85][0] * avgWidth) - 1, ((crNums[i - 85][2] * avgHeight)) - 1);
-
+                //tv.layout(((crNums[i - 85][0] - 1) * avgWidth) + 1, ((crNums[i - 85][1] - 1) * avgHeight) + 1, (crNums[i - 85][0] * avgWidth) - 1, ((crNums[i - 85][2] * avgHeight)) - 1);
+                tv.layout(((crNums.get(i-85)[0] - 1) * avgWidth) + 1, ((crNums.get(i-85)[1] - 1) * avgHeight) + 1, (crNums.get(i-85)[0] * avgWidth) - 1, ((crNums.get(i-85)[2] * avgHeight)) - 1);
             }
         }
 
 
     }
 
-    public void setRowAndCulomnNum(int[][] crNums) {
+    public void setRowAndCulomnNum(ArrayList<int[]> crNums) {
         this.crNums = crNums;
     }
 
-    public void setCourseText(String[] args) {
+    public void setCourseText(ArrayList<String> args) {
         this.courseText = args;
     }
 }

@@ -99,42 +99,22 @@
                             android:layout_height="45dp"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="开始周数"/>
-                        <com.example.a76952.login2.views.EditTextLayout
-                            android:id="@+id/start_week"
+                            android:text="选择周数"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10sp"
+                            android:src="@drawable/ic_svg_week"/>
+                        <TextView
+                            android:id="@+id/select_week"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:hint="开始周数"
-                            app:icon="@drawable/ic_svg_node"
-                            />
-
+                            android:layout_marginLeft="10sp"
+                            android:onClick="showMultiAlertDialog"
+                            android:text="点击选择"/>
                 </LinearLayout>
 
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#20000000" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:textSize="15sp"
-                        android:text="结束周数"/>
-                    <com.example.a76952.login2.views.EditTextLayout
-                        android:id="@+id/end_week"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:hint="结束周数"
-                        app:icon="@drawable/ic_svg_node"
-                        />
-
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -150,23 +130,90 @@
                         android:gravity="center"
                         android:textSize="15sp"
                         android:text="上课时间"/>
-                    <com.example.a76952.login2.views.EditTextLayout
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10sp"
+                        android:src="@drawable/ic_svg_week"/>
+                    <TextView
                         android:id="@+id/week_day"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hint="请输入星期几"
-                        app:icon="@drawable/ic_svg_node"
-                        />
+                        android:layout_marginLeft="10sp"
+                        android:onClick="showSelectWeekDay"
+                        android:text="点击选择周几"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="开始节数"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10sp"
+                        android:src="@drawable/ic_svg_node"/>
+                    <TextView
+                        android:id="@+id/start_lesson"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10sp"
+                        android:onClick="showStartLessonDialog"
+                        android:text="点击选择开始节数"/>
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#20000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="结束节数"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10sp"
+                        android:src="@drawable/ic_svg_week"/>
+                    <TextView
+                        android:id="@+id/end_lesson"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10sp"
+                        android:onClick="showEndLessonDialog"
+                        android:text="点击选择结束节数"/>
 
                 </LinearLayout>
 
 
             </LinearLayout>
 
-            <include layout="@layout/layout_add_time_item" />
+
 
             <Button
-                android:id="@+id/btn_remove"
+                android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="8dp"
@@ -175,7 +222,6 @@
                 android:background="@drawable/selector_btn_cancel"
                 android:text="增加"
                 android:textSize="16sp"
-
                 tools:visibility="visible" />
 
         </LinearLayout>

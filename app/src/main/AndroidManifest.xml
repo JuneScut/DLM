@@ -30,7 +30,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ActivityDetail" />
         <activity android:name=".ActivityInvite" />
-        <activity android:name=".NewCourse"></activity>
+        <activity android:name=".NewCourse" />
     </application>
 
 </manifest>

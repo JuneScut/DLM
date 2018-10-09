@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.a76952.login2.Objects.Cur;
 import com.example.a76952.login2.network.HttpCallBackListener;
 import com.example.a76952.login2.network.HttpConnect;
+import com.example.a76952.login2.network.HttpsConnect;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String userPassword;
     private Handler mhandler;
     private TextView registerText;
-    private final String api= "http://biketomotor.cn:3000/api/UserSignIn";
+    private final String api= "https://app.biketomotor.cn/api/UserSignIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else{
             JSONObject jsonData = getJson(userName,userPassword);
              /* Use HttpUrlConnection  发送登录请求 用户名是学号 */
-            HttpConnect.sendHttpRequest(api, "POST", jsonData, new HttpCallBackListener() {
+            HttpsConnect.sendHttpRequest(api, "POST", jsonData, new HttpCallBackListener() {
                 @Override
                 public void success(String response) {
                     catchResponse(response);

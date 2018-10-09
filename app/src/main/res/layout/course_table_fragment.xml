@@ -2,20 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:datebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <!--选择第几周 暂时不想实现-->
-    <!--<include-->
-        <!--android:id="@+id/title"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--layout="@layout/course_table_title"-->
-        <!--/>-->
+    android:layout_height="fill_parent"
+    android:id="@+id/course_table">
+    <!--选择第几周-->
+    <include
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        layout="@layout/course_table_title"
+        />
 
     <!--显示周一到周日-->
     <com.example.a76952.login2.views.CourseDateBarView
         android:id="@+id/datebar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_below="@+id/title"
         datebar:textColor="#000000"
         datebar:textSize="4sp"></com.example.a76952.login2.views.CourseDateBarView>
     <!-- 课程表body部分 -->
