@@ -60,7 +60,6 @@ public class ActivityFragment extends Fragment {
                 catchResponse(response);
                 System.out.println(response);
             }
-
             @Override
             public void error(Exception exception) {
                 exception.printStackTrace();
@@ -112,8 +111,8 @@ public class ActivityFragment extends Fragment {
                             String creater = jsonObject.getString("creater");
                             activityList.add(new ActivityItem(R.drawable.ic_rightfoot, name, id, creater));
                         }
-                        System.out.println("activityList");
-                        System.out.println(activityList);
+                        System.out.println("size");
+                        System.out.println(activityList.size());
 
                         //设置布局管理器
                         layoutManager=new LinearLayoutManager(mContext);

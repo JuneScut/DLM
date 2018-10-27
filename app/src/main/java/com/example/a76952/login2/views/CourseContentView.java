@@ -2,6 +2,7 @@ package com.example.a76952.login2.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +40,12 @@ public class CourseContentView extends RelativeLayout {
     private int culomnNum;
     private int startRowNum;
     private int endRowNum;
+
+    //view数量
+    private int viewNumber=85;
+    public void setViewNumber(int courseNum){
+        viewNumber = 85 + courseNum;
+    }
 
     public CourseContentView(Context context) {
         super(context);
@@ -159,6 +166,7 @@ public class CourseContentView extends RelativeLayout {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
 
+        // int childCount = viewNumber;
         int childCount = getChildCount();
         System.out.println("childCount = "+childCount);
         /**
@@ -174,7 +182,7 @@ public class CourseContentView extends RelativeLayout {
         int rowNum = 0;//行号
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);
-            if (i < 84) {
+            if (i <= 84) {
 
                 //行号自加
                 if (i % 7 == 0) {
@@ -193,14 +201,15 @@ public class CourseContentView extends RelativeLayout {
                 bottom = avgHeight * columnNum + markerHeight / 2;
                 //布局MarkerView
                 childView.layout(left, top, right, bottom);
-            } else if (i == 84) {
-                //布局GridView
-                childView.layout(0, 0, width, height);
+//            } else if (i == 84) {
+//                //布局GridView
+//                childView.layout(0, 0, width, height);
             } else if (i > 84) {
                 LayoutParams params = new LayoutParams(avgWidth, (endRowNum - startRowNum) * avgHeight);
                 TextView tv = (TextView) childView;
                 tv.setLayoutParams(params);
                 //文字内容在这里设置才会自动排序
+                Log.i("viewIndex",i+"");
                 tv.setText(courseText.get(i - 85));
                 //最后+1dp/-1dp来设置间隔即间隔为2dp
                 //tv.layout(((crNums[i - 85][0] - 1) * avgWidth) + 1, ((crNums[i - 85][1] - 1) * avgHeight) + 1, (crNums[i - 85][0] * avgWidth) - 1, ((crNums[i - 85][2] * avgHeight)) - 1);

@@ -20,7 +20,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a76952.login2.Objects.Cur;
 import com.example.a76952.login2.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by 76952 on 2018/9/16.
@@ -28,6 +32,11 @@ import com.example.a76952.login2.R;
 
 public class CourseDetailDialog extends Dialog {
     Activity context;
+    private EditText et_courseName;
+    private EditText et_classroom;
+    private EditText et_teacher;
+    private EditText et_weeks;
+    private EditText et_weekDay;
     private EditText et_startLesson;
     private EditText et_endLesson;
     private View.OnClickListener  mClickListener;
@@ -37,11 +46,33 @@ public class CourseDetailDialog extends Dialog {
     private Integer endLessonSelected = -1;
     private android.support.v7.app.AlertDialog startLessonDialog;
     private android.support.v7.app.AlertDialog endLessonDialog;
+    private String courseName;
+    private String teacher;
+    private String classromm;
+    private String weeks;
+    private String weekDay;
+    private String startTime;
+    private String endTime;
 
     public CourseDetailDialog(@NonNull Activity context) {
         super(context);
         this.context = context;
     }
+
+    public CourseDetailDialog(Activity context,String courseName, String teacher, String classromm, String weeks, String weekDay, String startTime, String endTime) {
+        super(context);
+        this.context = context;
+        this.courseName = courseName;
+        this.teacher = teacher;
+        this.classromm = classromm;
+        this.weeks = weeks;
+        this.weekDay = weekDay;
+        this.startTime = startTime;
+        this.endTime = endTime;
+
+    }
+
+
 
     public CourseDetailDialog(Activity context,int theme,View.OnClickListener clickListener){
         super(context,theme);
@@ -53,8 +84,21 @@ public class CourseDetailDialog extends Dialog {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.course_detail);
-        et_startLesson = (EditText) findViewById(R.id.start_time);
-        et_endLesson = (EditText) findViewById(R.id.end_lesson);
+        et_courseName = (EditText) findViewById(R.id.detail_courseName);
+        et_classroom = (EditText) findViewById(R.id.detail_classroom);
+        et_teacher = (EditText) findViewById(R.id.detail_teacher);
+        et_weeks = (EditText) findViewById(R.id.detail_weeks);
+        et_weekDay = (EditText) findViewById(R.id.detail_weekday);
+        et_startLesson = (EditText) findViewById(R.id.detail_start_lesson);
+        et_endLesson = (EditText) findViewById(R.id.detail_end_lesson);
+
+        et_courseName.setText(this.courseName);
+        et_classroom.setText(this.classromm);
+        et_teacher.setText(this.teacher);
+        et_weeks.setText(this.weeks);
+        et_weekDay.setText(this.weekDay);
+        et_startLesson.setText(this.startTime);
+        et_endLesson.setText(this.endTime);
        // et_startLesson.setOnClickListener(this);
         //et_endLesson.setOnClickListener(this);
         Window dialogWindow = this.getWindow();
@@ -110,6 +154,31 @@ public class CourseDetailDialog extends Dialog {
         endLessonDialog.show();
     }
 
+    private JSONObject getJson() {
+        String courseName = et_courseName.getText().toString();
+        String classroom = et_classroom.getText().toString();
+        String teacher = et_teacher.getText().toString();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("stu_id", "1");
+            JSONObject courseData = new JSONObject();
+            courseData.put("courseName", courseName);
+            courseData.put("courseName", courseName);
+            courseData.put("classroom", classroom);
+            courseData.put("teacher", teacher);
+//            courseData.put("weeks",selections);
+//            courseData.put("weekDay",weekDaySelected);
+//            courseData.put("startTime",startLessonSelected);
+//            courseData.put("endTime",endLessonSelected);
+            json.put("courseData", courseData);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+
+    }
 
 
 }

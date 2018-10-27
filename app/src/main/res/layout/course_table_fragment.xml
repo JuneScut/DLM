@@ -3,6 +3,7 @@
     xmlns:datebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/White"
     android:id="@+id/course_table">
     <!--选择第几周-->
     <include

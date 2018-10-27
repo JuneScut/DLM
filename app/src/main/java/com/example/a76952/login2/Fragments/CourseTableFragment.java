@@ -1,9 +1,13 @@
 package com.example.a76952.login2.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,49 +39,62 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by 76952 on 2018/8/11.
  */
 
 public class CourseTableFragment extends Fragment implements View.OnClickListener, View.OnTouchListener{
+    View view;
     private TextView tvShowWeeksList;
     private PopupWindow weeksListPpw;
     private Button btn_addCourse;
-    private Integer courseListLength;
+    private Integer courseListLength = 0;
     private ArrayList<int[]> crNums;
     private ArrayList<String> courseTexts;
+    private ArrayList<Integer> crIds;
+    private ArrayList<int[]> crWeeks;
+    private ArrayList<String> courseNames;
+    private ArrayList<String> courseClassrooms;
+    private ArrayList<String> courseTeachers;
+    private ArrayList<String> courseWeeks;
+    private ArrayList<String> courseWeekDays;
+    private ArrayList<String> courseStartTimes;
+    private ArrayList<String> courseEndTimes;
+    private CourseContentView ccv;
     private String api = "https://app.biketomotor.cn/course/GetCourseList";
+    private String deleteApi = "https://app.biketomotor.cn/course/DeleteCourse";
+    private static int IS_FINISH = 1;
+    String[] weekDayDict = {"周一","周二","周三","周四","周五","周六","周日"};
+    String[] timeDict={"第1节","第2节","第3节","第4节","第5节","第6节","第7节","第8节","第9节","第10节","第11节","第12节"};
+    private  Handler handler = new Handler() {
+        // 在Handler中获取消息，重写handleMessage()方法
+        @Override
+        public void handleMessage(Message msg) {
+            // 判断消息码是否为1
+            if(msg.what==IS_FINISH){
+                adjustCourseView(view);
+            }
+        }
+    };
+    //课程的背景颜色
+    int[] bgIds = {R.drawable.ic_course_bg_bohelv, R.drawable.ic_course_bg_lan, R.drawable.ic_course_bg_tao, R.drawable.ic_course_bg_zi, R.drawable.ic_course_bg_bohelv,R.drawable.ic_course_bg_tuhuang, R.drawable.ic_course_bg_tao,R.drawable.ic_course_bg_tuhuang};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.course_table_fragment, null);
-        CourseContentView ccv = (CourseContentView) view.findViewById(R.id.add_course_rl);
-        //获取初始课程列表
+        Log.i("message","it is a new fragment created here");
+        view = inflater.inflate(R.layout.course_table_fragment, null);
+        ccv = (CourseContentView) view.findViewById(R.id.add_course_rl);
+
+        //获取初始课程列表 在getInitialList发送网络请求，在sucess中调用handlerMessage，再调用adjustCourseView来调整课表视图
         getInitialList();
-        //初始化课表视图
-        ccv.setRowAndCulomnNum(crNums);
-        ccv.setCourseText(courseTexts);
-        //初始化课程的背景颜色
-        int[] bgIds = {R.drawable.ic_course_bg_bohelv, R.drawable.ic_course_bg_lan, R.drawable.ic_course_bg_tao, R.drawable.ic_course_bg_zi, R.drawable.ic_course_bg_bohelv,R.drawable.ic_course_bg_tuhuang, R.drawable.ic_course_bg_tao,R.drawable.ic_course_bg_tuhuang};
-        //调整课程视图
-        for (int i = 0; i < courseListLength; i++) {
-            TextView courseView = new TextView(getActivity());
-            int randomIndex = (int)(Math.random()* 8);
-            courseView.setBackgroundResource(bgIds[randomIndex]);
-            courseView.setGravity(Gravity.CENTER);
-            courseView.setTextColor(Color.WHITE);
-            courseView.setTextSize(12);
-            ccv.addView(courseView);
-            final int finalI = i;
-            courseView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getActivity(), finalI + "click", Toast.LENGTH_SHORT).show();
-                    showCourseDetail(view);
-                }
-            });
-        }
 
         // 新增课程
         btn_addCourse = (Button) view.findViewById(R.id.add_course);
@@ -162,35 +179,48 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
     private void getInitialList(){
         crNums = new ArrayList<int[]>();
         courseTexts = new ArrayList<String>();
-        int[] arr1 = {1,1,2};int[] arr2 = {2,1,2};int[] arr3 = {3, 1, 2};int[] arr4 = {4, 1, 2};int[] arr5 = {5, 1, 2};int[] arr6 = {2, 3, 4};int[] arr7 = {1, 7, 8};
-        crNums.add(arr1);crNums.add(arr2);crNums.add(arr3);crNums.add(arr4);crNums.add(arr5);crNums.add(arr6);crNums.add(arr7);
-        String str1 = "数字信号处理@C3-503";String str2 =  "电机及应用技术@C3-503";String str3 =  "新技术专题II@C3-502";String str4 =  "自动控制原理@北教4#-503";String str5 = "软件架构原理@A1-431";String str6 = "IT项目管理@A1-431";String str7 = "数字信号处理@C3-503";
-        courseTexts.add(str1);  courseTexts.add(str2);courseTexts.add(str3); courseTexts.add(str4); courseTexts.add(str5); courseTexts.add(str6); courseTexts.add(str7);
-        courseListLength = crNums.size();
-        // 拿到课表内容
+        crIds = new ArrayList<Integer>();
+        crWeeks = new ArrayList<int[]>();
+        courseNames = new ArrayList<String>();
+        courseClassrooms = new ArrayList<String>();
+        courseTeachers = new ArrayList<String>();
+        courseWeekDays = new ArrayList<String>();
+        courseWeeks = new ArrayList<String>();
+        courseStartTimes = new ArrayList<String>();
+        courseEndTimes = new ArrayList<String>();
+// 初始化的数据
+//        int[] arr1 = {1,1,2};int[] arr2 = {2,1,2};int[] arr3 = {3, 1, 2};int[] arr4 = {4, 1, 2};int[] arr5 = {5, 1, 2};int[] arr6 = {2, 3, 4};int[] arr7 = {1, 7, 8};
+//        crNums.add(arr1);crNums.add(arr2);crNums.add(arr3);crNums.add(arr4);crNums.add(arr5);crNums.add(arr6);crNums.add(arr7);
+//        String str1 = "数字信号处理@C3-503";String str2 =  "电机及应用技术@C3-503";String str3 =  "新技术专题II@C3-502";String str4 =  "自动控制原理@北教4#-503";String str5 = "软件架构原理@A1-431";String str6 = "IT项目管理@A1-431";String str7 = "数字信号处理@C3-503";
+//        courseTexts.add(str1);  courseTexts.add(str2);courseTexts.add(str3); courseTexts.add(str4); courseTexts.add(str5); courseTexts.add(str6); courseTexts.add(str7);
+//        courseListLength = crNums.size();
+
+// 拿到课表内容,用HttpsConnect.sendHttpRequest方式
         JSONObject courseJsonData = getJson();
         HttpsConnect.sendHttpRequest(api, "POST", courseJsonData, new HttpCallBackListener() {
             @Override
             public void success(String response) {
-                System.out.println("result success");
+                System.out.println("getCourseList success");
                 System.out.println("res="+response);
                 catchResponse(response);//处理课程列表 crNums 和 courseTexts,courseListLength
             }
 
             @Override
             public void error(Exception exception) {
-                System.out.println("result failed");
+                System.out.println("getCourseList failed");
                 exception.printStackTrace();
             }
         });
 
     }
 
-    private void showCourseDetail(View view) {
+    private void showCourseDetail(View view, final int position) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CourseDetailDialog courseDetailDialog = new CourseDetailDialog(getActivity());
+                CourseDetailDialog courseDetailDialog = new CourseDetailDialog( getActivity(),courseNames.get(position), courseTeachers.get(position),
+                                                        courseClassrooms.get(position),courseWeeks.get(position),courseWeekDays.get(position),
+                                                        courseStartTimes.get(position), courseEndTimes.get(position));
                 courseDetailDialog.show();
             }
         });
@@ -221,33 +251,52 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
                     JSONObject getCourseResponse = new JSONObject(response);
                     String courseList = getCourseResponse.getString("courseList");
                     JSONArray courseArray = new JSONArray(courseList);
+                    Log.i("courseArry length",courseArray.length()+"");
+                    courseListLength = courseArray.length();
                     for(int i=0;i<courseArray.length();i++){
                          //courseArray[i] is not an instance of JSONObject, courseItemObject is
                         JSONObject courseItemObject = courseArray.getJSONObject(i);
+                        int courseId = courseItemObject.getInt("courseId");
+                        crIds.add(courseId);
+                        Log.i("courseId",courseId+"");
                         String courseData = courseItemObject.getString("courseData");
                         JSONObject courseDataObject = new JSONObject(courseData);
                         String courseName = courseDataObject.getString("courseName");
                         String classromm = courseDataObject.getString("classroom");
                         String teacher = courseDataObject.getString("teacher");
                         JSONArray weeks = courseDataObject.getJSONArray("weeks");
-                        ArrayList<Integer> weeksArray = new ArrayList<>();
-                        for(int j=0;j<weeks.length();j++){
-                            weeksArray.add(weeks.getInt(j));
+                        int[] weeksArray = new int[30];
+                        String weeksStr = "第";
+                        for(int j=0;j<(weeks.length()-1);j++){
+                            Log.i("265",weeks.getInt(j)+"");
+                            weeksArray[j] = (weeks.getInt(j));
+                            weeksStr = weeksStr + weeks.getInt(j) + ",";
                         }
+                        weeksStr = weeksStr + weeks.getInt(weeks.length()-1) + "周";
+                        Log.i("270",weeksStr);
                         int weekDay = courseDataObject.getInt("weekDay");
                         int startTime = courseDataObject.getInt("startTime");
                         int endTime = courseDataObject.getInt("endTime");
                         int[] arr = {weekDay,startTime,endTime};
                         crNums.add(arr);
-                        String str = courseName+"@"+classromm;
+                        String str = courseName+"@"+classromm+"@"+teacher;
                         courseTexts.add(str);
-                        courseListLength = crNums.size();
-                        System.out.println("new crNums and courseTexts");
-                        System.out.println(crNums);
-                        System.out.println(courseTexts);
+                        crWeeks.add(weeksArray);
+                        courseNames.add(courseName);
+                        courseClassrooms.add(classromm);
+                        courseTeachers.add(teacher);
+                        courseWeekDays.add(weekDayDict[weekDay-1]);
+                        courseWeeks.add(weeksStr);
+                        courseStartTimes.add(timeDict[startTime-1]);
+                        courseEndTimes.add(timeDict[endTime-1]);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }finally {
+                    Message msg = Message.obtain();
+                    msg.what = IS_FINISH;
+                    // 发送这个消息到消息队列中
+                    handler.sendMessage(msg);
                 }
             }
         });
@@ -264,6 +313,107 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
 
         }
     }
+
+    private void adjustCourseView(final View view){
+        //初始化课表视图
+        ccv.setRowAndCulomnNum(crNums);
+        ccv.setCourseText(courseTexts);
+        ccv.setViewNumber(courseListLength);
+        for (int i = 0; i < courseListLength; i++) {
+            TextView courseView = new TextView(getActivity());
+            int randomIndex = (int)(Math.random()* 8);
+            courseView.setId(crIds.get(i));
+            courseView.setBackgroundResource(bgIds[randomIndex]);
+            courseView.setGravity(Gravity.CENTER);
+            courseView.setTextColor(Color.WHITE);
+            courseView.setTextSize(12);
+            ccv.addView(courseView);
+            final int finalI = i;
+            courseView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), finalI + "click", Toast.LENGTH_SHORT).show();
+                    Log.i("click postion",finalI+"");
+                    Log.i("判断为","点击");
+                    showCourseDetail(view,finalI);
+                }
+            });
+            courseView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.i("判断为","长按");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("删除课程");
+                    builder.setMessage("是否确认删除该课程?");
+                    builder.setCancelable(true);
+                    builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("选择","确定");
+                            // 发送删除请求
+                            deleteCourse(finalI);
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("选择","取消");
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void deleteCourse( final int courseId ){
+        JSONObject deletedJson = new JSONObject();
+        String stuId = Cur.getAccount();
+        try {
+            deletedJson.put("stu_id", stuId);
+            deletedJson.put("courseId",courseId);
+            Log.i("courseId",courseId+"");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        HttpsConnect.sendHttpRequest(deleteApi, "POST", deletedJson, new HttpCallBackListener() {
+            @Override
+            public void success(String response) {
+                System.out.println("delete success");
+                System.out.println("res="+ response);
+                //更新课程表
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //courseListLength -= 1;
+                            //ccv.setViewNumber(courseListLength);
+                            Log.i("deleting courseId=",courseId+"");
+                            ccv.removeViews(85+courseId,1);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void error(Exception exception) {
+                System.out.println("result failed");
+                exception.printStackTrace();
+            }
+        });
+
+
+    }
+
+
 
 
 }

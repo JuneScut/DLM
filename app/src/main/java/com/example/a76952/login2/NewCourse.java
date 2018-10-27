@@ -33,7 +33,7 @@ public class NewCourse extends AppCompatActivity  {
     private AlertDialog multiSelectDialog;
     private boolean[] defaultSelectedStatus = {false,false,false,false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
-    final ArrayList<Integer> selections = new ArrayList<>();
+    final ArrayList<Integer> selections = new ArrayList<>(0);
     final String[] weekDays = {"星期一","星期二","星期三","星期四","星期五","星期六","星期日"};
     private Integer weekDaySelected = -1;
     private AlertDialog weekDayDialog;
@@ -78,13 +78,6 @@ public class NewCourse extends AppCompatActivity  {
         String courseName = et_courseName.getText().toString();
         String classroom = etl_classroom.getText().toString();
         String teacher = etl_teacher.getText().toString();
-        Log.i("courseName",courseName);
-        Log.i("classroom",classroom);
-        Log.i("teacher",teacher);
-        System.out.println(selections);
-        Log.i("weekDay",weekDaySelected+"");
-        Log.i("startLesson",startLessonSelected+"");
-        Log.i("endLesson",endLessonSelected+"");
         final Intent intent = new Intent(NewCourse.this,MainActivity.class);
         intent.putExtra("courseName",courseName);
         intent.putExtra("classroom",classroom);

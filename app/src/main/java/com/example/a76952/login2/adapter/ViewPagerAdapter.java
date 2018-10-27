@@ -33,5 +33,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public void addFragment(Fragment fragment) {
         mFragmentList.add(fragment);
     }
+    public void removeAllFragments() {
+        mFragmentList.clear();
+    }
 
 }
