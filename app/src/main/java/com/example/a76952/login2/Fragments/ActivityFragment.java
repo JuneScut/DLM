@@ -1,7 +1,6 @@
 package com.example.a76952.login2.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 
-import com.example.a76952.login2.ActivityDetail;
-import com.example.a76952.login2.ActivityItemAdapter;
-import com.example.a76952.login2.MainActivity;
+import com.example.a76952.login2.adapter.ActivityItemAdapter;
 import com.example.a76952.login2.Objects.Cur;
 import com.example.a76952.login2.R;
 

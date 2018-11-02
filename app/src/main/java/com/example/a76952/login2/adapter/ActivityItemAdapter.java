@@ -1,14 +1,16 @@
-package com.example.a76952.login2;
+package com.example.a76952.login2.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.a76952.login2.ActivityDetail;
+import com.example.a76952.login2.ActivityItem;
+import com.example.a76952.login2.R;
 
 import java.util.List;
 
