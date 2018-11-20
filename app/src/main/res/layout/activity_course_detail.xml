@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context="com.example.a76952.login2.views.CourseDetailDialog">
+    tools:context="com.example.a76952.login2.courseDetail">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-        <TextView
+        <EditText
+            android:id="@+id/course_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="课程名"
@@ -74,6 +73,7 @@
                         android:background="@color/colorCursor" />
 
                     <EditText
+                        android:id="@+id/course_classroom"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -130,6 +130,7 @@
                         android:background="@color/colorCursor" />
 
                     <EditText
+                        android:id="@+id/course_teacher"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -182,7 +183,8 @@
                         android:layout_toRightOf="@id/start_week_hint"
                         android:background="@color/colorCursor" />
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/course_weeks"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -191,7 +193,8 @@
                         android:background="@null"
                         android:ems="19"
                         android:text="周数"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:onClick="showMultiAlertDialog"/>
 
 
                 </RelativeLayout>
@@ -236,7 +239,8 @@
                         android:layout_toRightOf="@id/week_day_hint"
                         android:background="@color/colorCursor" />
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/course_weekdays"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -245,7 +249,8 @@
                         android:background="@null"
                         android:ems="19"
                         android:text="上课时间"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:onClick="showSelectWeekDay"/>
 
 
                 </RelativeLayout>
@@ -288,8 +293,8 @@
                         android:layout_toRightOf="@id/start_time_hint"
                         android:background="@color/colorCursor" />
 
-                    <EditText
-                        android:id="@+id/start_lesson"
+                    <TextView
+                        android:id="@+id/course_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -298,7 +303,8 @@
                         android:background="@null"
                         android:ems="19"
                         android:text="开始时间"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:onClick="showStartLessonDialog"/>
 
 
                 </RelativeLayout>
@@ -341,8 +347,8 @@
                         android:layout_toRightOf="@id/end_time_hint"
                         android:background="@color/colorCursor" />
 
-                    <EditText
-                        android:id="@+id/end_lesson"
+                    <TextView
+                        android:id="@+id/course_end_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -351,7 +357,8 @@
                         android:background="@null"
                         android:ems="19"
                         android:text="结束时间"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:onClick="showEndLessonDialog"/>
 
 
 
@@ -362,14 +369,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Button
-                        android:id="@+id/btn_cancel"
-                        android:layout_alignParentLeft="true"
-                        android:background="@color/colorGray"
-                        android:textColor="@color/White"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="取消"/>
                     <Button
                         android:id="@+id/btn_confirm"
                         android:layout_alignParentRight="true"

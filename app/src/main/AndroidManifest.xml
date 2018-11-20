@@ -31,6 +31,7 @@
         <activity android:name=".ActivityDetail" />
         <activity android:name=".ActivityInvite" />
         <activity android:name=".NewCourse" />
+        <activity android:name=".courseDetail"></activity>
     </application>
 
 </manifest>

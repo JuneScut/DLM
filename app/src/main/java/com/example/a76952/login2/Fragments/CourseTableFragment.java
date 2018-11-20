@@ -30,10 +30,10 @@ import com.example.a76952.login2.NewCourse;
 import com.example.a76952.login2.Objects.Cur;
 import com.example.a76952.login2.R;
 import com.example.a76952.login2.adapter.WeeksListAdapter;
+import com.example.a76952.login2.courseDetail;
 import com.example.a76952.login2.network.HttpCallBackListener;
 import com.example.a76952.login2.network.HttpsConnect;
 import com.example.a76952.login2.views.CourseContentView;
-import com.example.a76952.login2.views.CourseDetailDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,6 +72,7 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
     private CourseContentView ccv;
     private String api = "https://app.biketomotor.cn/course/GetCourseList";
     private String deleteApi = "https://app.biketomotor.cn/course/DeleteCourse";
+    private String changeCurrentWeekApi = "https://app.biketomotor.cn//course/SetCurrentWeek";
     private static int IS_FINISH = 1;
     String[] weekDayDict = {"周一","周二","周三","周四","周五","周六","周日"};
     String[] timeDict={"第1节","第2节","第3节","第4节","第5节","第6节","第7节","第8节","第9节","第10节","第11节","第12节"};
@@ -134,6 +135,8 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("position","="+position);
+                // 应该在这里发送更改当前周的请求
+                changeCurrentWeek(position);
             }
         });
         return view;
@@ -215,15 +218,15 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
     }
 
     private void showCourseDetail(View view, final int position) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                CourseDetailDialog courseDetailDialog = new CourseDetailDialog( getActivity(),courseNames.get(position), courseTeachers.get(position),
-                                                        courseClassrooms.get(position),courseWeeks.get(position),courseWeekDays.get(position),
-                                                        courseStartTimes.get(position), courseEndTimes.get(position));
-                courseDetailDialog.show();
-            }
-        });
+        Intent intent = new Intent(getActivity(), courseDetail.class);
+        intent.putExtra("courseName", courseNames.get(position));
+        intent.putExtra("courseTeacher", courseTeachers.get(position));
+        intent.putExtra("courseClassroom", courseClassrooms.get(position));
+        intent.putExtra("courseWeek", courseWeeks.get(position));
+        intent.putExtra("courseWeekDay", courseWeekDays.get(position));
+        intent.putExtra("courseStartTime", courseStartTimes.get(position));
+        intent.putExtra("courseEndTime", courseEndTimes.get(position));
+        startActivity(intent);
     }
 
     private JSONObject getJson(){
@@ -393,6 +396,13 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
                             //courseListLength -= 1;
                             //ccv.setViewNumber(courseListLength);
                             Log.i("deleting courseId=",courseId+"");
+                            // removeView(): 子onMeasure --> 父onMeasure -->子onLayout-->父onLayout
+                            courseTexts.remove(courseId);
+                            crNums.remove(courseId);
+                            courseListLength -= 1;
+                            ccv.setRowAndCulomnNum(crNums);
+                            ccv.setCourseText(courseTexts);
+                            ccv.setViewNumber(courseListLength);
                             ccv.removeViews(85+courseId,1);
 
                         } catch (Exception e) {
@@ -411,6 +421,39 @@ public class CourseTableFragment extends Fragment implements View.OnClickListene
         });
 
 
+    }
+
+    private JSONObject modifyCurrentWeekJson(int position){
+        JSONObject json = new JSONObject();
+        String stuId = Cur.getAccount();
+        int currentWeek = position+1;
+        try {
+            json.put("stu_id", stuId);
+            json.put("currentWeek",currentWeek);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public void changeCurrentWeek(int position) {
+        JSONObject modifyWeekJson = modifyCurrentWeekJson(position);
+        Log.i("modifyWeekJson", modifyWeekJson.toString());
+        HttpsConnect.sendHttpRequest(changeCurrentWeekApi, "POST", modifyWeekJson, new HttpCallBackListener() {
+            @Override
+            public void success(String response) {
+                Log.i("currentWeek","change success");
+                System.out.println("res="+response);
+                // 重新获取课程表数据
+                getInitialList();
+            }
+
+            @Override
+            public void error(Exception exception) {
+                System.out.println("getCourseList failed");
+                exception.printStackTrace();
+            }
+        });
     }
 
 

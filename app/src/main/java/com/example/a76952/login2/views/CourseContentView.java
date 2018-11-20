@@ -212,7 +212,6 @@ public class CourseContentView extends RelativeLayout {
                 Log.i("viewIndex",i+"");
                 tv.setText(courseText.get(i - 85));
                 //最后+1dp/-1dp来设置间隔即间隔为2dp
-                //tv.layout(((crNums[i - 85][0] - 1) * avgWidth) + 1, ((crNums[i - 85][1] - 1) * avgHeight) + 1, (crNums[i - 85][0] * avgWidth) - 1, ((crNums[i - 85][2] * avgHeight)) - 1);
                 tv.layout(((crNums.get(i-85)[0] - 1) * avgWidth) + 1, ((crNums.get(i-85)[1] - 1) * avgHeight) + 1, (crNums.get(i-85)[0] * avgWidth) - 1, ((crNums.get(i-85)[2] * avgHeight)) - 1);
             }
         }
